@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username"
+                name="username" required />
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password"
+                name="password" required />
+            <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign
+                in</button>
+        </form>
+    </div>
+</ion-content>
