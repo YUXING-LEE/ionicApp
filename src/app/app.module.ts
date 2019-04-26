@@ -4,8 +4,6 @@ import { RouteReuseStrategy } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DataTableModule, DropdownModule, DialogModule } from 'primeng/primeng';
-import { ToastrModule } from 'ngx-toastr';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -17,9 +15,7 @@ import { UserService } from './services/user.service';
 import { BookService } from './services/book.service';
 import { AuthService } from './services/auth.service';
 import { StockService } from './services/stock.service';
-
-// import { CreateModalComponent } from './component/list/create-modal/create-modal.component';
-// import { EditModalComponent } from './component/list/edit-modal/edit-modal.component';
+import { ToastService } from './services/toast.service';
 
 @NgModule({
     declarations: [
@@ -31,11 +27,7 @@ import { StockService } from './services/stock.service';
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpModule,
-        BrowserAnimationsModule,
-        DataTableModule,
-        DropdownModule,
-        DialogModule,
-        ToastrModule
+        BrowserAnimationsModule
     ],
     providers: [
         StatusBar,
@@ -44,7 +36,8 @@ import { StockService } from './services/stock.service';
         UserService,
         AuthService,
         StockService,
-        BookService
+        BookService,
+        ToastService
     ],
     bootstrap: [AppComponent]
 })

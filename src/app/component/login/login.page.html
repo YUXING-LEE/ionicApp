@@ -8,17 +8,21 @@
 </ion-header>
 
 <ion-content>
-    <div class="container">
-        <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username"
-                name="username" required />
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password"
-                name="password" required />
-            <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign
-                in</button>
+    <div>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+            <h2>登入帳戶</h2>
+            <ion-item>
+                <ion-label position="floating">帳號</ion-label>
+                <ion-input type="text" [(ngModel)]="loginData.username" placeholder="輸入帳號" required="true"
+                    [ngModelOptions]="{standalone: true}"> </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">密碼</ion-label>
+                <ion-input type="password" [(ngModel)]="loginData.password" placeholder="輸入密碼" required="true"
+                    [ngModelOptions]="{standalone: true}">
+                </ion-input>
+            </ion-item>
+            <ion-button expand="block" type="submit">登入</ion-button>
         </form>
     </div>
 </ion-content>

@@ -1,30 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { book } from '../../models/book.model';
+import { ModalController } from '@ionic/angular';
 
-import { BookService } from '../../services/book.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { BookService } from '../../services/book.service';
+
+import { book } from '../../models/book.model';
+
+import { CreateModalComponent } from './create-modal/create-modal.component';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
+
 @Component({
-  selector: 'app-list',
-  templateUrl: 'list.page.html',
-  styleUrls: ['list.page.css']
+    selector: 'app-list',
+    templateUrl: 'list.page.html',
+    styleUrls: ['list.page.css']
 })
 export class ListPage implements OnInit {
     private _subscriptions: Subject<void> = new Subject<void>();
 
 
     constructor(private router: Router,
-        private Bookservice: BookService) { }
+        private Bookservice: BookService,
+        private modalController: ModalController) { }
 
-    books = new Array<book>();
+    private books = new Array<book>();
 
     ngOnInit(): void {
         this.getAllBooks();
     }
 
-    public getAllBooks(): void {
+    private getAllBooks(): void {
         this.Bookservice.getBooks().pipe(takeUntil(this._subscriptions)).subscribe(
             books => {
                 this.books = books;
@@ -33,11 +40,29 @@ export class ListPage implements OnInit {
             });
     }
 
-    // public createBook(): void {
-    //     this.createModal.show();
-    // }
+    private async createBook() {
+        const modal = await this.modalController.create({
+            component: CreateModalComponent
+        })
+        this.closeModal(modal);
+    }
 
-    // public getBookDetail(id: string): void {
-    //     this.editModal.getBook(id);
-    // }
+    private async getBookDetail(id: string) {
+        const modal = await this.modalController.create({
+            component: EditModalComponent,
+            componentProps: {
+                id: id
+            }
+        })
+        this.closeModal(modal);
+    }
+
+    private async closeModal(modal) {
+        modal.onDidDismiss().then((status) => {
+            if (status.data)
+                this.getAllBooks();
+        });
+        return await modal.present()
+    }
+
 }
